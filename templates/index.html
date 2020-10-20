@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+        <header class="header nav-item" id="header">
+            <div class="header-overlay">
+
+             <div class="container">
+                 
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 login-box">  
+                            <div class="logo">
+                                <img src="{% static 'images/logo.png' %}" alt="" width="100%">
+                            </div>       
+                            <a href="{% url 'login' %}" class="btn">Giriş yap</a>
+                            <a href="{% url 'signup' %}" class="btn">Kayıt ol</a>
+                        </div>                                                            
+                    </div>                                    
+            </div>
+           </div>
+        </header>
+
+
+{% endblock %}  

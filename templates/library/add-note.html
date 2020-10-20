@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'home/navbar.html' %}
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-12 col-md-12 login-box">         
+                    <h1 style="font-family:'Oswald', sans-serif; font-size: 40px !important;">{{book.title}} Kitabı için Not Ekleyin</h1>
+                   <form action="{%  url 'add_note' book.id   %}" method="POST" name="notes">
+                    {% csrf_token %}
+                    <div class="textbox">
+                        <textarea type="text" placeholder="Notunuz : " rows="8" cols="25" required id="id_notes" name="notes"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn">Not Ekle</button>
+
+                   </form>
+                </div>                                                            
+            </div>                                    
+    </div>
+
+    {% endblock %}

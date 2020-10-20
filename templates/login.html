@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+        <header class="header nav-item" id="header">
+            <div class="header-overlay">
+             <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 login-box">         
+                            <h1>GİRİŞ YAP</h1>
+                           <form action="" method="post">
+                             {% csrf_token %}
+                             <div class="textbox">
+                              <i class="fas fa-user"></i>
+                              {{form.username}}
+                            </div>
+                          
+                            <div class="textbox">
+                              <i class="fas fa-lock"></i>
+                              {{form.password}}
+                            </div>
+                            <input class="btn" type="submit" value="Giriş Yap">
+                           </form>
+                            <h6>Hala bir hesabın yok mu? <a href="{% url 'signup' %}">Kayıt ol</a></h6>
+                        </div>                                                            
+                    </div>                                    
+            </div>
+           </div>
+        </header>
+        <script>
+          var form_fields = document.getElementsByTagName('input')
+          form_fields[1].placeholder='Kullanıcı adınız';
+          form_fields[2].placeholder='Şifreniz';  
+          
+        </script>
+{% endblock %}  

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% include 'home/navbar.html' %}
+
+        <div class="container" style="margin-top: 20%;">
+                 
+            <div class="row align-items-center">
+              <div class="col-lg-12" style="margin-bottom: 20%;">
+                <div class="containerr">
+                  <form action="/book-search-i-am-reading/" method="post">
+                    {% csrf_token %}
+                     <input type="search" name="search_query" id="search_query" placeholder="Kitap Araması...">
+                 </form>
+                  <div class="search"></div>
+                </div>
+              </div>
+              <div class="col-lg-12 col-sm-12 col-xs-12">
+                <hr>
+                <h1>ŞU ANDA OKUDUKLARIM</h1>
+                <hr>
+                {% for book in my_books %}
+                <div class="card card--small">
+                  <a href="{% url 'list_notes' book.booksList.id %}"><div class="card__image" style="background-image:  url('{{book.booksList.photo_url|default_if_none:'#' }}')"></div></a>
+               
+                  <a href="{% url 'list_notes' book.booksList.id %}"><h2 class="card__title">{{book.booksList.title}}</h2></a>
+                  <span class="card__subtitle">{{book.booksList.author}}<a href="{% url 'create_note' book.booksList.id  %}" style="float:right; color: rebeccapurple;">Not ekle <i class="fas fa-plus"></i></a></span> 
+                  <div class="card__action-bar">
+                    <a class="card__button" id="book{{book.pk}}" data-bitenid="{{ book.pk }}">Bitenlere <i class="fas fa-check"></i></a>
+                    <!--<button class="card__button">Okuyacaklarıma <i class="fas fa-plus"></i></button>-->
+                  </div>
+                </div>
+                {% endfor %}  
+            
+               </div>
+            </div>                                                                                              
+      </div>
+        
+{% endblock %}

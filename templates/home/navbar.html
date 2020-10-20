@@ -1,0 +1,99 @@
+<nav class="navbar navbar-expand-lg fixed-top py-3">
+    <div class="container"><a href="{% url 'home' %}" class="navbar-brand text-uppercase font-weight-bold">Kütüphanem</a>
+        <button type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler navbar-toggler-right"><i class="fa fa-bars"></i></button>
+        
+        <div id="navbarSupportedContent" class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item active"><a href="{% url 'home' %}" class="nav-link text-uppercase font-weight-bold">Anasayfa <span class="sr-only">(current)</span></a></li>
+              <li class="nav-item"><a href="{% url 'books' %}" class="nav-link text-uppercase font-weight-bold">Kitaplar </a></li>
+              <div class="dropdown">
+
+                <a class="nav-item nav-link text-uppercase font-weight-bold dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Kütüphane
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  <li class="nav-item dropdown-item"><a href="{% url 'my_library' %}" class="nav-link text-uppercase font-weight-bold"> Kütüphanem <i class="fas fa-book-reader"></i></a></li>
+                  <li class="nav-item dropdown-item"><a href="{% url 'book_ill_read' %}" class="nav-link text-uppercase font-weight-bold">Okuyacaklarım <i class="fas fa-book-open"></i></a></li>
+                  <li class="nav-item dropdown-item"><a href="{% url 'book_iam_reading' %}" class="nav-link text-uppercase font-weight-bold">Şu an Okuduklarım <i class="fas fa-book"></i></a></li>
+                  <li class="nav-item dropdown-item"><a href="{% url 'book_i_read' %}" class="nav-link text-uppercase font-weight-bold">Bitenler <i class="fas fa-book"></i></a></li>
+                </div>
+
+              </div>
+              <li class="nav-item"><a href="{% url 'settings' %}" class="nav-link text-uppercase font-weight-bold">Ayarlar <i class="fas fa-user-cog"></i></a></li>
+              <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link text-uppercase font-weight-bold">Çıkış Yap <i class="fas fa-sign-out-alt"></i></a></li>
+             <!--<li class="nav-item"><a href="#" class="nav-link text-uppercase font-weight-bold"><i class="fas fa-bell"></i></a></li>-->
+            </ul>
+        </div>
+    </div>
+</nav>
+{% if messages %}
+{% for message in messages %}
+  <div class="modal alert1" id="modal{{message}}" style="top: 10%;"  tabindex="-1" role="dialog" >
+    <div class="modal-dialog">
+      <div class="modal-content" style=" background: #52c234;  /* fallback for old browsers */
+      background: -webkit-linear-gradient(to right, #061700, #52c234);  /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to right, #061700, #52c234); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h1 class="modal-title" style="color:white; font-family: 'Oswald', 'sans-serif'">Bilgi:  </h1>
+          <button type="button" class="close" data-dismiss="modal" aria-label="close">×</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          <h1 class="alert1p" style="color:white; font-family: 'Oswald', 'sans-serif'">{{ message }}</h1>
+        
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn-danger" data-dismiss="modal" aria-label="close" id="kapat" onclick="cancel()">Close</button>
+        </div>
+        <script>  
+          function cancel(){
+              $('#modal{{message}}').modal('hide')
+              console.log('#modal{{message}}')
+          }
+          </script>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+{% endif %}
+{% if messages %}
+{% for message in messages %}
+<div class="modal alert2" id="modal{{message}}" style="top: 10%; "  tabindex="-1" role="dialog" >
+  <div class="modal-dialog">
+    <div class="modal-content" style="background: #ED213A;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #93291E, #ED213A);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #93291E, #ED213A); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */;">
+    
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h1 class="modal-title" style="color:white; font-family: 'Oswald', 'sans-serif'">Bilgi:  </h1>
+        <button type="button" class="close" data-dismiss="modal" aria-label="close">×</button>
+      </div>
+      
+      <!-- Modal body -->
+      <div class="modal-body">
+        <h1 class="alert2p" style="color:white; font-family: 'Oswald', 'sans-serif'">{{ message }}</h1>
+      
+      </div>
+      
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn-danger" data-dismiss="modal" aria-label="close" onclick="cancel()">Close</button>
+      </div>
+      <script>  
+        function cancel(){
+            $('#modal{{message}}').modal('hide')
+            console.log('#modal{{message}}')
+        }
+        </script>
+    </div>
+  </div>
+</div>
+
+{% endfor %}
+{% endif %}

@@ -1,0 +1,130 @@
+      {% load static %}     
+      
+                </script>
+        <!-- Bootstrap js -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+        <script src="{% static 'js/infinite.min.js' %}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.3.0/snap.svg-min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+       <script src="{% static 'js/custom.js' %}"></script>
+       <script>
+
+        $(document).ready(function(){
+            setInterval(function(){
+                $.ajax({
+                    type: 'GET',
+                    url: "{% url 'getBookCount' %}",
+                    success : function(response){
+                        $('#kutuphane').html(response.kutuphane)
+                        $('#bitenler').html(response.bitenler)
+                        $('#suan').html(response.simdi_okuduklarım)
+                        $('#okunacaklar').html(response.okunacaklar)
+                    },
+                    error: function(response){
+        
+                    }
+                });
+        
+            },2000);
+        });
+        </script>
+      
+       <script type="text/javascript">
+        $(function(){
+          $('.card__button').click(function(){
+           
+            var catid;
+            catid = $(this).attr("data-catid");
+            
+            $.ajax(
+            {
+                type:"GET",
+                url: "/addto-my-library/"+catid,
+                data:{
+                        pk: catid
+                },
+                success: function(data) 
+                {
+                  
+                 if(data=='Eklendi'){
+                     $('.alert1p').html('Eklendi');
+                     $('.alert1').modal('show');
+                 }
+                 if(data=='Kitap kütüphanenizde zaten mevcut'){
+                    $('.alert2p').html('Kitap zaten daha önce eklendi ');
+                     $('.alert2').modal('show');
+                 }
+                    
+                }
+            })
+        });
+        $('.card__button').click(function(){
+           
+           var bitenid;
+           bitenid = $(this).attr("data-bitenid");
+           $.ajax(
+            {
+                type:"GET",
+                url: "/addto-i-read/"+bitenid,
+                data:{
+                        pk: bitenid
+                },
+                success: function( data ) 
+                {
+                    if(data=='Eklendi'){
+                     $('.alert1p').html('Eklendi');
+                     $('#modal'+data).modal('show')
+                     }
+                }
+            })
+       });
+       $('.card__button').click(function(){
+           
+           var okunacakid;
+           okunacakid = $(this).attr("data-okunacakid");
+           $.ajax(
+            {
+                type:"GET",
+                url: "/addto-i-will/"+okunacakid,
+                data:{
+                    pk: okunacakid
+                },
+                success: function(data) 
+                {
+                    if(data=='Eklendi'){
+                     $('.alert1p').html('Eklendi');
+                     $('#modal'+data).modal('show')
+                    }
+
+                }
+            })
+       });
+       $('.card__button').click(function(){
+           
+           var simdiid;
+           simdiid = $(this).attr("data-simdiid");
+           $.ajax(
+            {
+                type:"GET",
+                url: "/addto-iam-reading-now/"+simdiid,
+                data:{
+                        pk: simdiid
+                },
+                success: function( data ) 
+                {  
+                    if(data=='Eklendi'){
+                     $('.alert1p').html('Eklendi');
+                     $('#modal'+data).modal('show')
+                     }
+                  
+                }
+            })
+       });
+    });
+
+
+    </script>
+    </body>
+</html>

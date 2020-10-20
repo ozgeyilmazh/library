@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% include 'home/navbar.html' %}
+        
+      {% if request.user.is_authenticated %}
+
+      <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 login-box">         
+                <h1>Başarısız Olundu</h1>
+                <h6>Tekrar denemek için; {{error}}</h6>
+                <a href="{% url 'settings' %}" class="btn" style="font-size: 20px;">Ayarlar</a>
+                <a href="{% url 'change_password' %}" class="btn" style="font-size: 20px;">Parolayı Güncelle --></a>
+            </div>                                                            
+        </div>                                    
+    </div>
+
+      {% endif %}
+        
+        
+    {% endblock %}

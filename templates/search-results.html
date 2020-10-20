@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'home/navbar.html' %}
+        <div class="container" style="margin-top: 20%;">
+                 
+          <div class="row align-items-center">
+         
+               <div class="col-lg-12">
+                   <h1>Not sorgulaması</h1><hr>
+                  {% if notes %}
+                  {% for n in note %}
+                  <div class="tweet">
+                      <div class="tweet--user">
+                          <div class="tweet--user-name"><h5 style="font-family: 'Oswald', sans-serif; font-weight: bolder;">{{n.booksList.title}}</h5></div>
+                        </div>
+                      <p class="tweet--body">{{n.notes}}</p>
+                      
+                      <div class="tweet--time" style="font-weight: bolder; letter-spacing: 1px;">{{n.timestamp}}</div>
+                  </div>
+                  {% endfor %}
+             
+                  {% else %}
+                  <h1>aradığınız not bulunamadı</h1>
+                  {% endif %}
+               </div>
+            </div>                                                                                              
+    </div>
+
+    {% endblock %}

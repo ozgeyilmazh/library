@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% include 'home/navbar.html' %}
+        
+      {% if request.user.is_authenticated %}
+
+      <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 login-box">         
+                <h1 style="font-size: 40px;">Bilgilerimi Güncelle</h1>
+                <form action="" method="POST">
+                  {% csrf_token %}
+                  <div class="textbox">
+                    <i class="fas fa-envelope"></i>
+                    {{form.email}}
+                  </div>
+                  <div class="textbox">
+                      <i class="fas fa-user"></i>
+                      {{form.username}}
+                    </div>
+               <!-- <div class="textbox">
+                      <i class="fas fa-lock"></i>
+                       {{form.password}}
+                  </div>
+                  <div class="textbox">
+                    <i class="fas fa-lock"></i>
+                    {{form.confirm}}
+                  </div>
+                -->               
+                  <input type="submit" class="btn" value="Güncelle"  style="font-size: 20px;">
+                </form>
+                
+                <a href="{% url 'change_password' %}" class="btn" style="font-size: 20px;">Parolayı Güncelle --></a>
+                <a href="{% url 'change_profile_picture' %}" class="btn" style="font-size: 20px;">Profil Resmini Güncelle --></a>
+            </div>                                                            
+        </div>                                    
+    </div>
+
+      {% endif %}
+        
+        
+    {% endblock %}

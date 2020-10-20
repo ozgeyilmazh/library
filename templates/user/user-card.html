@@ -1,0 +1,54 @@
+{% load static %}
+<div class="col-lg-12" style="margin-top: 5%;">
+    <section class="player-card">
+        <div class="card">
+          <header>
+            <a class="profile">
+              {% if user.profile.profile_pic %}
+              <img src="{{user.profile.profile_pic.url}}" alt="Profile Image">
+              {% else %}
+              <img src="" alt="Profile Image">
+
+              {% endif %}
+              
+            </a>
+          </header>
+      
+          <article>
+            <h1>@{{request.user}}</h1>
+            <!--<h2>Level Seviyesi</h2>-->
+            
+            <div class="info">
+              <div>
+               <a href="{% url 'my_library' %}">
+                <span id="kutuphanem">{{ request.session.kutuphanem }}</span>
+                <span>Kütüphanem</span>
+               </a>
+              </div>
+              
+              <div>
+               <a href="{% url 'book_ill_read' %}">
+                <span id="okunacaklar">{{ request.session.okunacaklar }}</span>
+                <span>Okunacaklar</span>
+               </a>
+              </div>
+              <div>
+                <a href="{% url 'book_iam_reading' %}">
+                  <span id="suan">{{ request.session.suan }}</span>
+                  <span>Şu an</span>
+                </a>
+              </div>
+              <div>
+                <a href="{% url 'book_i_read' %}">
+                  <span id="bitenler">{{ request.session.bitenler }}</span>
+                  <span>Bitenler</span>
+                </a>
+              </div>
+            </div>
+          </article>
+        </div>
+        
+        
+      </section>
+</div>
+

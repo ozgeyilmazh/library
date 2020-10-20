@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'home/navbar.html' %}
+        <div class="container" style="margin-top: 20%;">
+                 
+            <div class="row align-items-center">
+             
+              <div class="col-lg-12 col-sm-12 col-xs-12">
+                <hr>
+                <h1>Aranılan Kitap</h1><hr>
+
+              {% if books %}
+              {% for book in books %}
+              <div class="card card--small">
+               <div class="card__image" style="background-image: url('{{book.booksList.photo_url|default_if_none:'#' }}')" data-toggle="modal" data-target="#modal{{ book.booksList.id }}" ></div>
+             
+                <a href="{% url 'list_notes' book.booksList.id %}"><h2 class="card__title">{{book.booksList.title}}</h2></a>
+                <span class="card__subtitle">By {{book.booksList.author}} <a href="{% url 'create_note' book.booksList.id  %}" style="float:right; color: rebeccapurple;">Not ekle <i class="fas fa-plus"></i></a></span> 
+                
+                <div class="card__action-bar">
+                  <form action="/addto-i-read/{{ book.pk }}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="card__button"> <i class="fas fa-check"></i></button>
+                  </form>
+                
+                  <form action="/addto-iam-reading-now/{{ book.pk }}" method="POST">
+                    {% csrf_token %}
+                    <button class="card__button">Şu an <i class="fas fa-book"></i></button>
+                  </form>
+                  <form action="/addto-i-will/{{ book.pk }}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="card__button">Okunacak <i class="fas fa-plus"></i></button>
+                  </form>
+                 
+                </div>
+              </div>
+              <div class="modal" id="modal{{ book.booksList.id }}" style="top: 10%;">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                  
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                      <h1 class="modal-title">{{book.booksList.title}} <small>{{book.booksList.author}}</small> </h1>
+                      <button type="button" class="close" data-dismiss="modal">×</button>
+                    </div>
+                    
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                      <p>{{book.booksList.content}}</p>
+                    
+                    </div>
+                    
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                      <button type="button" class="btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+              {% else %}
+              <h1>Aradığınız sonuç bulunamadı</h1>
+              {% endif %}
+               </div>
+            </div>                                                                                              
+      </div>
+        
+      {% endblock %}

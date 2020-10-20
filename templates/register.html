@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+        <header class="header nav-item" id="header">
+            <div class="header-overlay">
+             <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 login-box">         
+                            <h1>KAYIT OL</h1>
+                            <form method="POST" action="">
+                              {% csrf_token %}
+                              <div class="textbox">
+                                <i class="fas fa-envelope"></i>
+                                {{form.email}}
+                              </div>
+                              <div class="textbox">
+                                  <i class="fas fa-user"></i>
+                                {{form.username}}
+                                </div>
+                              <div class="textbox">
+                                  <i class="fas fa-lock"></i>
+                                {{form.password}}
+                              </div>
+                            
+                              <div class="textbox">
+                                <i class="fas fa-lock"></i>
+                                {{form.confirm}}
+                              </div>
+                            
+                              <input class="btn" type="submit" value="Kayıt Ol">
+                            </form>
+                            <h6>Zaten bir hesabın var mı?  <a href="{% url 'login' %}">Giriş yap</a></h6>
+                        </div>                                                            
+                    </div>                                    
+            </div>
+           </div>
+        </header>
+        <script>
+          var form_fields = document.getElementsByTagName('input')
+          form_fields[1].placeholder='Email';
+          form_fields[2].placeholder='Kullanıcı adınız';
+          form_fields[3].placeholder='Şifrenizi girin';
+          form_fields[4].placeholder='Şifrenizi tekrar girin';
+  
+          
+        </script>
+        {% endblock %}  

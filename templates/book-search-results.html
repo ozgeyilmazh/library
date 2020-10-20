@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'home/navbar.html' %}
+        <div class="container" style="margin-top: 20%;">
+                 
+            <div class="row align-items-center">
+             
+              <div class="col-lg-12 col-sm-12 col-xs-12">
+                <hr>
+                <h1>Aranılan Kitap</h1><hr>
+
+              {% if books %}
+              {% for book in books %}
+              <div class="card card--small">
+                <div class="card__image" style="background-image: url('{{book.booksList.image.url}}')" data-toggle="modal" data-target="#modal{{ book.id }}" ></div>
+                <h2 class="card__title">{{ book.title }}</h2>
+                <span class="card__subtitle">By {{ book.author }}</span>
+                <div class="card__action-bar">
+                  <!--<button class="card__button">SHARE</button>-->
+                  <form action="/addto-my-library/{{ book.pk }}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="card__button">Kütüphaneme Ekle <i class="fas fa-plus"></i></button>
+                  </form>
+                </div>
+              </div>
+              <div class="modal" id="modal{{ book.id }}" style="top: 10%;">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                  
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                      <h1 class="modal-title">{{book.title}} <small>{{book.author}}</small> </h1>
+                      <button type="button" class="close" data-dismiss="modal">×</button>
+                    </div>
+                    
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                      <p>{{book.content}}</p>
+                    
+                    </div>
+                    
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                      <button type="button" class="btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+              {% else %}
+              <h1>Aradığınız sonuç bulunamadı</h1>
+              {% endif %}
+               </div>
+
+            </div>                                                                                              
+      </div>
+        
+      {% endblock %}

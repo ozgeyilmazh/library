@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% include 'home/navbar.html' %}
+        
+      {% if request.user.is_authenticated %}
+
+      <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 login-box">         
+                <h1>Bilgilerimi Güncelle</h1>
+                <form method="POST" action="{% url 'change_profile_picture' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input class="btn" type="file" name="images" style="font-size: 20px;"/>
+                    <input class="btn" type="submit" value="Resimi yükle">
+                </form>
+                
+            </div>                                                            
+        </div>                                    
+    </div>
+
+      {% endif %}
+        
+        
+    {% endblock %}
