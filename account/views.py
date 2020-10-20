@@ -38,9 +38,8 @@ def signUpUser(request):
                 user = User.objects.create_user(username=username, email=email)
                 user.set_password(password)
                 user.save()
-                print("user created ")
-                messages.warning(request, "Başarılı bir şekilde kayıt oldunuz.")
 
+                messages.warning(request, "Başarılı bir şekilde kayıt oldunuz.")
                 return redirect('login')
         else:
             print('Password not matching.. ')

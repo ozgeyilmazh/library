@@ -7,7 +7,7 @@
               {% if user.profile.profile_pic %}
               <img src="{{user.profile.profile_pic.url}}" alt="Profile Image">
               {% else %}
-              <img src="" alt="Profile Image">
+              <img src="{% static 'images/book.jpg' %}" alt="Profile Image">
 
               {% endif %}
               

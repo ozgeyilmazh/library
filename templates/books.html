@@ -32,12 +32,12 @@
                   <div class="card__action-bar">
                     <!--<button class="card__button">SHARE</button>     action="/addto-my-library/{{ book.pk }}"  -->
                 
-                      <a class="card__button" id="book{{book.pk}}" data-catid="{{ book.pk }}">Kütüphaneme Ekle <i class="fas fa-plus"></i></a>
+                      <a class="card__button" id="book{{book.pk}}" data-catid="{{ book.pk }}"  >Kütüphaneme Ekle <i class="fas fa-plus"></i></a>
                       
                   </div>
                 </div>
               
-                <div class="modal" id="modal{{ book.id }}" style="top: 10%;">
+                <div class="modal fade" id="modal{{ book.id }}" style="top: 10%;">
                   <div class="modal-dialog">
                     <div class="modal-content">
                     
@@ -53,10 +53,7 @@
                       
                       </div>
                       
-                      <!-- Modal footer -->
-                      <div class="modal-footer">
-                        <button type="button" class="btn-danger" data-dismiss="modal">Close</button>
-                      </div>
+                
                       
                     </div>
                   </div>

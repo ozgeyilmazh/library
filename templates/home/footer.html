@@ -8,6 +8,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.3.0/snap.svg-min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
        <script src="{% static 'js/custom.js' %}"></script>
        <script>
 
@@ -26,7 +27,6 @@
         
                     }
                 });
-        
             },2000);
         });
         </script>
@@ -37,7 +37,6 @@
            
             var catid;
             catid = $(this).attr("data-catid");
-            
             $.ajax(
             {
                 type:"GET",
@@ -46,18 +45,10 @@
                         pk: catid
                 },
                 success: function(data) 
-                {
-                  
-                 if(data=='Eklendi'){
-                     $('.alert1p').html('Eklendi');
-                     $('.alert1').modal('show');
-                 }
-                 if(data=='Kitap kütüphanenizde zaten mevcut'){
-                    $('.alert2p').html('Kitap zaten daha önce eklendi ');
-                     $('.alert2').modal('show');
-                 }
-                    
-                }
+                { 
+                    swal("Bilgi: ", data);   
+                },
+              
             })
         });
         $('.card__button').click(function(){
@@ -71,13 +62,11 @@
                 data:{
                         pk: bitenid
                 },
-                success: function( data ) 
-                {
-                    if(data=='Eklendi'){
-                     $('.alert1p').html('Eklendi');
-                     $('#modal'+data).modal('show')
-                     }
-                }
+                success: function(data) 
+                { 
+                    swal("Bilgi: ", data);   
+                },
+            
             })
        });
        $('.card__button').click(function(){
@@ -92,13 +81,10 @@
                     pk: okunacakid
                 },
                 success: function(data) 
-                {
-                    if(data=='Eklendi'){
-                     $('.alert1p').html('Eklendi');
-                     $('#modal'+data).modal('show')
-                    }
-
-                }
+                { 
+                    swal("Bilgi: ", data);   
+                },
+               
             })
        });
        $('.card__button').click(function(){
@@ -112,14 +98,10 @@
                 data:{
                         pk: simdiid
                 },
-                success: function( data ) 
-                {  
-                    if(data=='Eklendi'){
-                     $('.alert1p').html('Eklendi');
-                     $('#modal'+data).modal('show')
-                     }
-                  
-                }
+                success: function(data) 
+                { 
+                    swal("Bilgi: ", data);   
+                },
             })
        });
     });

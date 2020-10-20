@@ -20,23 +20,16 @@
                 <span class="card__subtitle">By {{book.booksList.author}} <a href="{% url 'create_note' book.booksList.id  %}" style="float:right; color: rebeccapurple;">Not ekle <i class="fas fa-plus"></i></a></span> 
                 
                 <div class="card__action-bar">
-                  <form action="/addto-i-read/{{ book.pk }}" method="POST">
-                    {% csrf_token %}
-                    <button type="submit" class="card__button"> <i class="fas fa-check"></i></button>
-                  </form>
+                  <a class="card__button" id="book{{book.pk}}" data-bitenid="{{ book.pk }}" ><i class="fas fa-check"></i></a>
                 
-                  <form action="/addto-iam-reading-now/{{ book.pk }}" method="POST">
-                    {% csrf_token %}
-                    <button class="card__button">Şu an <i class="fas fa-book"></i></button>
-                  </form>
-                  <form action="/addto-i-will/{{ book.pk }}" method="POST">
-                    {% csrf_token %}
-                    <button type="submit" class="card__button">Okunacak <i class="fas fa-plus"></i></button>
-                  </form>
+                  <a class="card__button" id="book{{book.pk}}" data-simdiid="{{ book.pk }}">Şu an <i class="fas fa-book"></i></a>
+
+                  <a class="card__button" id="book{{book.pk}}" data-okunacakid="{{ book.pk }}">Okunacak <i class="fas fa-plus"></i></a>
+                  
                  
                 </div>
               </div>
-              <div class="modal" id="modal{{ book.booksList.id }}" style="top: 10%;">
+              <div class="modal fade" id="modal{{ book.booksList.id }}" style="top: 10%;">
                 <div class="modal-dialog">
                   <div class="modal-content">
                   
@@ -52,11 +45,7 @@
                     
                     </div>
                     
-                    <!-- Modal footer -->
-                    <div class="modal-footer">
-                      <button type="button" class="btn-danger" data-dismiss="modal">Close</button>
-                    </div>
-                    
+             
                   </div>
                 </div>
               </div>

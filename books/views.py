@@ -10,7 +10,7 @@ from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse
-
+from account.models import Profile
 def index(request):
     if request.user.is_authenticated:
         return redirect("home")
@@ -20,6 +20,15 @@ def index(request):
 def homepage(request):
     context = dict() 
     current_user = request.user.id
+    data = Profile(user_id=current_user)
+    try:
+        q1 = Profile.objects.get(user_id=current_user)
+    except Profile.DoesNotExist:
+        q1 = None
+    if q1 != None:
+        print("kayıt edilmiş") 
+    else:
+        data.save()
     context['kutuphanem'] = BookUserList.objects.filter(user_id=current_user, status='kutuphane').count()
     context['bitenler'] = BookUserList.objects.filter(user_id=current_user, status2='bitenler').count()
     context['suan'] = BookUserList.objects.filter(user_id=current_user, status2='simdi_okuduklarım').count()
@@ -151,13 +160,11 @@ def add_to_my_library(request, id):
         except BookUserList.DoesNotExist:
             q1 = None
         if q1 != None:
-            messages.warning(request, "Kitap kütüphanenizde zaten mevcut")
             message = "Kitap kütüphanenizde zaten mevcut"
             return HttpResponse(message)
         else:
-            messages.success(request, "Eklendi")
             data.save()
-            message = "Eklendi"
+            message = "Kütüphanenize eklendi"
             return HttpResponse(message)
     return HttpResponseRedirect(reverse('books', args=None))
 
@@ -170,10 +177,18 @@ def add_to_i_will(request, id):
         count_books(request)
         obj = BookUserList.objects.get(user_id=current_user, id=id)
         data = BookUserList(user_id=current_user, pk=id, booksList=obj.booksList, status2='okunacaklar')
-        data.save()
-        messages.success(request, "Eklendi")
-        message = "Eklendi"
-        return HttpResponse(message)
+        try:
+            q1 = BookUserList.objects.get(user_id=current_user, booksList=obj.booksList, status2='okunacaklar')
+        except BookUserList.DoesNotExist:
+            q1 = None
+        if q1 != None:
+            message = "Kitap zaten okunacaklar bölümünde"
+            return HttpResponse(message)
+        else:
+            data.save()
+            message = "Okunacaklara eklendi"
+            return HttpResponse(message)
+       
     return HttpResponseRedirect(url)
 
 @login_required(login_url="login")  
@@ -185,10 +200,17 @@ def add_to_iam_reading_now(request, id):
         count_books(request)
         obj = BookUserList.objects.get(user_id=current_user, pk=id)
         data = BookUserList(user_id=current_user, pk=id, booksList=obj.booksList, status2='simdi_okuduklarım')
-        data.save()
-        messages.success(request, "Eklendi")
-        message = "Eklendi"
-        return HttpResponse(message)
+        try:
+            q1 = BookUserList.objects.get(user_id=current_user,  booksList=obj.booksList,  status2='simdi_okuduklarım')
+        except BookUserList.DoesNotExist:
+            q1 = None
+        if q1 != None:
+            message = "Kitap zaten şu anda okunanlar bölümünde"
+            return HttpResponse(message)
+        else:
+            data.save()
+            message = "Şu an okunanlara eklendi"
+            return HttpResponse(message)
     
     return HttpResponseRedirect(url)  
 
@@ -201,10 +223,17 @@ def add_to_i_read(request, id):
         count_books(request)
         obj = BookUserList.objects.get(user_id=current_user, pk=id)
         data = BookUserList(user_id=current_user, pk=id, booksList=obj.booksList, status2='bitenler')
-        data.save()
-        messages.success(request, "Eklendi")
-        message = "Eklendi"
-        return HttpResponse(message)
+        try:
+            q1 = BookUserList.objects.get(user_id=current_user, booksList=obj.booksList, status2='bitenler')
+        except BookUserList.DoesNotExist:
+            q1 = None
+        if q1 != None:
+            message = "Kitap zaten bitenler bölümünde"
+            return HttpResponse(message)
+        else:
+            data.save()
+            message =  "Bitenler bölümüne eklendi"
+            return HttpResponse(message)
     
     return HttpResponseRedirect(url)      
 

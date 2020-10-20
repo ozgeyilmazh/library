@@ -14,18 +14,16 @@
               {% if books %}
               {% for book in books %}
               <div class="card card--small">
-                <div class="card__image" style="background-image: url('{{book.booksList.image.url}}')" data-toggle="modal" data-target="#modal{{ book.id }}" ></div>
+                <div class="card__image" style="background-image: url({{book.photo_url|default_if_none:'#' }})" data-toggle="modal" data-target="#modal{{ book.id }}" ></div>
                 <h2 class="card__title">{{ book.title }}</h2>
                 <span class="card__subtitle">By {{ book.author }}</span>
                 <div class="card__action-bar">
                   <!--<button class="card__button">SHARE</button>-->
-                  <form action="/addto-my-library/{{ book.pk }}" method="POST">
-                    {% csrf_token %}
-                    <button type="submit" class="card__button">Kütüphaneme Ekle <i class="fas fa-plus"></i></button>
-                  </form>
+                  <a class="card__button" id="book{{book.pk}}" data-catid="{{ book.pk }}"  >Kütüphaneme Ekle <i class="fas fa-plus"></i></a>
+                 
                 </div>
               </div>
-              <div class="modal" id="modal{{ book.id }}" style="top: 10%;">
+              <div class="modal fade" id="modal{{ book.id }}" style="top: 10%;">
                 <div class="modal-dialog">
                   <div class="modal-content">
                   
@@ -40,11 +38,7 @@
                       <p>{{book.content}}</p>
                     
                     </div>
-                    
-                    <!-- Modal footer -->
-                    <div class="modal-footer">
-                      <button type="button" class="btn-danger" data-dismiss="modal">Close</button>
-                    </div>
+                  
                     
                   </div>
                 </div>
